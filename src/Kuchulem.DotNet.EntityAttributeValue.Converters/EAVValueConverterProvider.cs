@@ -34,7 +34,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters
             return converter;
         }
 
-        public IEAVValueConverter<T> GetConverter<T>(EAVAttributeBase attribute)
+        public IEAVValueConverter<T> GetConverter<T>(IEAVAttribute attribute)
         {
             if (!TryGetConverter<T>(attribute, out var converter) || converter == null)
                 throw new Exception(string.Format("No converter registered for this attribute : {0}, or registered with a different typeparam ({1})", attribute.AttributeName, typeof(T)));
@@ -55,7 +55,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters
             return this;
         }
 
-        public IEAVValueConverterProvider Register<T>(EAVAttributeBase attribute, IEAVValueConverter<T> converter)
+        public IEAVValueConverterProvider Register<T>(IEAVAttribute attribute, IEAVValueConverter<T> converter)
         {
             var key = attribute.AttributeName
                 ?? throw new Exception("Can not register an attribute with null name");
@@ -82,7 +82,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters
             return converter != null;
         }
 
-        public bool TryGetConverter<T>(EAVAttributeBase attribute, out IEAVValueConverter<T>? converter)
+        public bool TryGetConverter<T>(IEAVAttribute attribute, out IEAVValueConverter<T>? converter)
         {
             var key = attribute.AttributeName
                 ?? throw new Exception("Can not register an attribute with null name");

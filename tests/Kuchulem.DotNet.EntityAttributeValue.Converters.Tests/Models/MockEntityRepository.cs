@@ -1,4 +1,5 @@
 ﻿using Kuchulem.DotNet.EntityAttributeValue.Abstractions;
+using Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

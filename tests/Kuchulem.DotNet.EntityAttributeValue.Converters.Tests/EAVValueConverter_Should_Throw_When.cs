@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
+namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
 {
     public class EAVValueConverter_Should_Throw_When
     {

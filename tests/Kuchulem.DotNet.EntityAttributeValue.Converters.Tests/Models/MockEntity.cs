@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models
 {
-    public class MockValue : EAVValueBase
+    public class MockEntity
     {
+        public string Id { get; set; } = string.Empty;
+
+        public IEnumerable<MockValue> Values { get; set; } = Enumerable.Empty<MockValue>();
     }
 }
