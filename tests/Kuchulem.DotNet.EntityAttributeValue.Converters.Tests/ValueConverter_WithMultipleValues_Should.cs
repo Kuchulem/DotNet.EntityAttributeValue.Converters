@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
+namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
 {
     public class ValueConverter_WithMultipleValues_Should
     {
@@ -36,19 +36,19 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.ConvertList<string>(entity.Values.Where(v => v.Attribute?.AttributeName == "string-list-multiple").First());
+            var value = valueConverter.ConvertList<string, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "string-list-multiple").First());
 
-            Assert.That(value, Is.EqualTo(new[] {"lorem", "ipsum"}));
+            Assert.That(value, Is.EqualTo(new[] { "lorem", "ipsum" }));
         }
 
         [Test]
-        public void ConvertToInts()
+        public void ConvertToIntegers()
         {
             var entity = entityRepository.GetByKey("valid-entity");
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.ConvertList<int>(entity.Values.Where(v => v.Attribute?.AttributeName == "int-list-multiple").First());
+            var value = valueConverter.ConvertList<int, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "int-list-multiple").First());
 
             Assert.That(value, Is.EqualTo(new[] { 2, 3 }));
         }
@@ -60,7 +60,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.ConvertList<double>(entity.Values.Where(v => v.Attribute?.AttributeName == "double-list-multiple").First());
+            var value = valueConverter.ConvertList<double, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "double-list-multiple").First());
 
             Assert.That(value, Is.EqualTo(new[] { 3.1415, 2.54 }));
         }
@@ -72,9 +72,9 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.ConvertList<bool>(entity.Values.Where(v => v.Attribute?.AttributeName == "bool-list-multiple").First());
+            var value = valueConverter.ConvertList<bool, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "bool-list-multiple").First());
 
-            Assert.That(value, Is.EqualTo(new[] { true, false}));
+            Assert.That(value, Is.EqualTo(new[] { true, false }));
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.ConvertList<DateTime>(entity.Values.Where(v => v.Attribute?.AttributeName == "datetime-list-multiple").First());
+            var value = valueConverter.ConvertList<DateTime, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "datetime-list-multiple").First());
 
             Assert.That(value, Is.EqualTo(new[] { new DateTime(2023, 5, 15, 19, 4, 0), new DateTime(2023, 5, 19, 14, 24, 0) }));
         }
@@ -96,7 +96,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.ConvertList<MockEntity>(entity.Values.Where(v => v.Attribute?.AttributeName == "entity-list-multiple").First());
+            var value = valueConverter.ConvertList<MockEntity, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "entity-list-multiple").First());
 
             Assert.That(value, Is.EqualTo(new[] { entityRepository.GetByKey("child"), entityRepository.GetByKey("other-child") }));
         }

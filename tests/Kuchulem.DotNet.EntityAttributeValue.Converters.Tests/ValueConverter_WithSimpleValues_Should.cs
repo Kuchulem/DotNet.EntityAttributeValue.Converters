@@ -1,14 +1,8 @@
-﻿using Kuchulem.DotNet.EntityAttributeValue.Converters;
 using Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
+namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
 {
-    public class ValueConverter_WithList_SingleSelection_Should
+    public class ValueConverter_WithSimpleValues_Should
     {
         private MockEntityRepository entityRepository;
         private MockAttributeRepository attributesRepository;
@@ -33,7 +27,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.Convert<string>(entity.Values.Where(v => v.Attribute?.AttributeName == "string-list-single").First());
+            var value = valueConverter.Convert<string, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "string-value").First());
 
             Assert.That(value is string strValue && strValue == "lorem ipsum", Is.True);
         }
@@ -45,7 +39,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.Convert<int>(entity.Values.Where(v => v.Attribute?.AttributeName == "int-list-single").First());
+            var value = valueConverter.Convert<int, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "int-value").First());
 
             Assert.That(value is int intValue && intValue == 2, Is.True);
         }
@@ -57,7 +51,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.Convert<double>(entity.Values.Where(v => v.Attribute?.AttributeName == "double-list-single").First());
+            var value = valueConverter.Convert<double, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "double-value").First());
 
             Assert.That(value is double doubleValue && doubleValue == 3.1415, Is.True);
         }
@@ -69,7 +63,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.Convert<bool>(entity.Values.Where(v => v.Attribute?.AttributeName == "bool-list-single-true").First());
+            var value = valueConverter.Convert<bool, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "bool-value-true").First());
 
             Assert.That(value is bool boolValue && boolValue, Is.True);
         }
@@ -81,7 +75,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.Convert<bool>(entity.Values.Where(v => v.Attribute?.AttributeName == "bool-list-single-false").First());
+            var value = valueConverter.Convert<bool, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "bool-value-false").First());
 
             Assert.That(value is bool boolValue && !boolValue, Is.True);
         }
@@ -93,7 +87,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.Convert<DateTime>(entity.Values.Where(v => v.Attribute?.AttributeName == "datetime-list-single").First());
+            var value = valueConverter.Convert<DateTime, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "datetime-value").First());
 
             Assert.That(value is DateTime boolValue && boolValue == new DateTime(2023, 5, 15, 19, 4, 0), Is.True);
         }
@@ -105,7 +99,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters
 
             var valueConverter = new ValueConverter(valueConverterProvider);
 
-            var value = valueConverter.Convert<MockEntity>(entity.Values.Where(v => v.Attribute?.AttributeName == "entity-list-single").First());
+            var value = valueConverter.Convert<MockEntity, MockValue, MockEntity, MockAttribute>(entity.Values.Where(v => v.Attribute?.AttributeName == "entity-value").First());
 
             Assert.That(value is MockEntity child && child.Id == "child", Is.True);
         }
