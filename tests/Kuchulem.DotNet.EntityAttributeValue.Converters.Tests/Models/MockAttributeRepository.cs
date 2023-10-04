@@ -14,122 +14,122 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models
             new MockAttribute
             {
                 AttributeName = "string-value",
-                ValueKind = EAVValueKind.String,
-                ValueListKind = EAVValueListKind.None
+                ValueKind = EavValueKind.String,
+                ValueListKind = EavValueListKind.None
             },
             new MockAttribute
             {
                 AttributeName = "int-value",
-                ValueKind = EAVValueKind.Integer,
-                ValueListKind = EAVValueListKind.None
+                ValueKind = EavValueKind.Integer,
+                ValueListKind = EavValueListKind.None
             },
             new MockAttribute
             {
                 AttributeName = "double-value",
-                ValueKind = EAVValueKind.Number,
-                ValueListKind = EAVValueListKind.None
+                ValueKind = EavValueKind.Number,
+                ValueListKind = EavValueListKind.None
             },
             new MockAttribute
             {
                 AttributeName = "bool-value-true",
-                ValueKind = EAVValueKind.Boolean,
-                ValueListKind = EAVValueListKind.None
+                ValueKind = EavValueKind.Boolean,
+                ValueListKind = EavValueListKind.None
             },
             new MockAttribute
             {
                 AttributeName = "bool-value-false",
-                ValueKind = EAVValueKind.Boolean,
-                ValueListKind = EAVValueListKind.None
+                ValueKind = EavValueKind.Boolean,
+                ValueListKind = EavValueListKind.None
             },
             new MockAttribute
             {
                 AttributeName = "datetime-value",
-                ValueKind = EAVValueKind.DateTime,
-                ValueListKind = EAVValueListKind.None
+                ValueKind = EavValueKind.DateTime,
+                ValueListKind = EavValueListKind.None
             },
             new MockAttribute
             {
                 AttributeName = "entity-value",
-                ValueKind = EAVValueKind.Entity,
-                ValueListKind = EAVValueListKind.None
+                ValueKind = EavValueKind.Entity,
+                ValueListKind = EavValueListKind.None
             },
             new MockAttribute
             {
                 AttributeName = "string-list-single",
-                ValueKind = EAVValueKind.String,
-                ValueListKind = EAVValueListKind.Single
+                ValueKind = EavValueKind.String,
+                ValueListKind = EavValueListKind.Single
             },
             new MockAttribute
             {
                 AttributeName = "int-list-single",
-                ValueKind = EAVValueKind.Integer,
-                ValueListKind = EAVValueListKind.Single
+                ValueKind = EavValueKind.Integer,
+                ValueListKind = EavValueListKind.Single
             },
             new MockAttribute
             {
                 AttributeName = "double-list-single",
-                ValueKind = EAVValueKind.Number,
-                ValueListKind = EAVValueListKind.Single
+                ValueKind = EavValueKind.Number,
+                ValueListKind = EavValueListKind.Single
             },
             new MockAttribute
             {
                 AttributeName = "bool-list-single-true",
-                ValueKind = EAVValueKind.Boolean,
-                ValueListKind = EAVValueListKind.Single
+                ValueKind = EavValueKind.Boolean,
+                ValueListKind = EavValueListKind.Single
             },
             new MockAttribute
             {
                 AttributeName = "bool-list-single-false",
-                ValueKind = EAVValueKind.Boolean,
-                ValueListKind = EAVValueListKind.Single
+                ValueKind = EavValueKind.Boolean,
+                ValueListKind = EavValueListKind.Single
             },
             new MockAttribute
             {
                 AttributeName = "datetime-list-single",
-                ValueKind = EAVValueKind.DateTime,
-                ValueListKind = EAVValueListKind.Single
+                ValueKind = EavValueKind.DateTime,
+                ValueListKind = EavValueListKind.Single
             },
             new MockAttribute
             {
                 AttributeName = "entity-list-single",
-                ValueKind = EAVValueKind.Entity,
-                ValueListKind = EAVValueListKind.Single
+                ValueKind = EavValueKind.Entity,
+                ValueListKind = EavValueListKind.Single
             },
             new MockAttribute
             {
                 AttributeName = "string-list-multiple",
-                ValueKind = EAVValueKind.String,
-                ValueListKind = EAVValueListKind.Multiple
+                ValueKind = EavValueKind.String,
+                ValueListKind = EavValueListKind.Multiple
             },
             new MockAttribute
             {
                 AttributeName = "int-list-multiple",
-                ValueKind = EAVValueKind.Integer,
-                ValueListKind = EAVValueListKind.Multiple
+                ValueKind = EavValueKind.Integer,
+                ValueListKind = EavValueListKind.Multiple
             },
             new MockAttribute
             {
                 AttributeName = "double-list-multiple",
-                ValueKind = EAVValueKind.Number,
-                ValueListKind = EAVValueListKind.Multiple
+                ValueKind = EavValueKind.Number,
+                ValueListKind = EavValueListKind.Multiple
             },
             new MockAttribute
             {
                 AttributeName = "bool-list-multiple",
-                ValueKind = EAVValueKind.Boolean,
-                ValueListKind = EAVValueListKind.Multiple
+                ValueKind = EavValueKind.Boolean,
+                ValueListKind = EavValueListKind.Multiple
             },
             new MockAttribute
             {
                 AttributeName = "datetime-list-multiple",
-                ValueKind = EAVValueKind.DateTime,
-                ValueListKind = EAVValueListKind.Multiple
+                ValueKind = EavValueKind.DateTime,
+                ValueListKind = EavValueListKind.Multiple
             },
             new MockAttribute
             {
                 AttributeName = "entity-list-multiple",
-                ValueKind = EAVValueKind.Entity,
-                ValueListKind = EAVValueListKind.Multiple
+                ValueKind = EavValueKind.Entity,
+                ValueListKind = EavValueListKind.Multiple
             },
         };
 

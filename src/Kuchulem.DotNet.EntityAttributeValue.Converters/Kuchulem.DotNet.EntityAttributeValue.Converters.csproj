@@ -4,7 +4,41 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Kuchulem's EntityAttributeValue Converters</Title>
+    <Version>1.0.0-alpha.1</Version>
+    <Authors>Kuchulem</Authors>
+    <Description>Default converters implementation for Kuchulem.DotNet.EntityAttributeValue.Abstractions.</Description>
+    <Copyright>2023 Kuchulem</Copyright>
+    <PackageProjectUrl>https://github.com/Kuchulem/DotNet.EntityAttributeValue.Converters</PackageProjectUrl>
+    <PackageIcon>kuchulem-logo-transparent-bg-128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Kuchulem/DotNet.EntityAttributeValue.Converters.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>EntityAttributeValue;Converter</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>..\..\doc\Kuchulem.DotNet.EntityAttributeValue.Converters.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\kuchulem-logo-transparent-bg-128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Abstractions\src\Kuchulem.DotNet.EntityAttributeValue.Abstractions\Kuchulem.DotNet.EntityAttributeValue.Abstractions.csproj" />

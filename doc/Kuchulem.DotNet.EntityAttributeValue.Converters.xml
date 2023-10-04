@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Kuchulem.DotNet.EntityAttributeValue.Converters</name>
+    </assembly>
+    <members>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavConverter">
+            <summary>
+            Implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavConverter"/>.<br/>
+            The implementation expects an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/>
+            upon construction (With DI for exemple) to find the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/>
+            to apply to a value.<br/>
+            The <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/> implementation can be used but developpers
+            can use their own implementation.<br/>
+            See the extension methods of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Extensions.IServiceCollectionExtensions"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavConverter.#ctor(Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider)">
+            <summary>
+            Constructor, expecting the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> implementation
+            </summary>
+            <param name="converterProvider"></param>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavConverter.TryConvertValue(Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue,System.Object@)">
+            <summary>
+            Converts the raw value from <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to
+            the referenced parameter <em>converted</em>.
+            Returns true if conversion was done, false if no converter
+            was found and throws an exception if no attribute is provided
+            by the <see cref="M:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.GetEavAttribute"/> method.
+            </summary>
+            <param name="value"></param>
+            <param name="converted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavConverter.TryConvertEntityAttributeValue(Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute,Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavEntity,System.Object@)">
+            <summary>
+            Tries to convert the values of an entity attributes.<br/>
+            When multiple <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/> are found for a single
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute"/> only the first one is used as value
+            unless the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute.ValueListKind"/> property
+            is <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueListKind.Multiple"/>. In that case the
+            conversion result is an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <param name="attribute"></param>
+            <param name="entity"></param>
+            <param name="converted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavConverter.TryConvertEntityValues(Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavEntity,System.Collections.Generic.Dictionary{Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute,System.Object}@)">
+            <summary>
+            Converts all <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/> for all <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute"/> of
+            an entity and populates a <see cref="T:System.Collections.Generic.Dictionary`2"/> with
+            the attribute as key and the convertion result as value.<br/>
+            When multiple <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/> are found for a single
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute"/> only the first one is used as value
+            unless the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute.ValueListKind"/> property
+            is <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueListKind.Multiple"/>. In that case the
+            convertion result is an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <param name="entity"></param>
+            <param name="converted"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider">
+            <summary>
+            Implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/>. This class
+            registers the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/>s for <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute"/>
+            matching a validator.<br/>
+            This implementation provides a method to register the "generic converters"
+            (<see cref="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.RegisterGenericConverters"/>) based on the
+            <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute.ValueKind"/> property of the attributes.<br/>
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.RegisterGenericConverters">
+            <summary>
+            Registers some "generic converters" based on the
+            <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute.ValueKind"/> property of the attributes.
+            </summary>
+            <remarks>
+            <para>
+            When registering specific <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> implementation,
+            this method should be called after all 
+            <see cref="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.Register(System.Func{Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute,System.Boolean},Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter)"/>
+            calls to avoid generic converters to mask other implementations:
+            </para>
+            <code>
+            var provider = new EavRawValueConverterProvider();
+            // Register specific converter for booleans
+            provider.Register(a => a.ValueKind == EavValueKind.Boolean, new SomeImplementation());
+            // Then register all generic converters, they will be check after the previous one
+            provider.RegisterGenericConverters();
+            </code>
+            <para>
+            The generic converters are for the following <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind"/>:
+            </para>
+            <list type="table">
+                <listheader>
+                    <term><see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind"/> from <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute.ValueKind"/></term>
+                    <description><see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> implementation</description>
+                </listheader>
+                <item>
+                    <term><see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Boolean"/></term>
+                    <description>
+                        <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToBoolConverter"/> converts to <see cref="T:System.Boolean"/>
+                    </description>
+                </item>
+                <item>
+                    <term><see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.DateTime"/></term>
+                    <description>
+                        <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDateTimeConverter"/> converts to <see cref="T:System.DateTime"/>
+                    </description>
+                </item>
+                <item>
+                    <term><see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Number"/></term>
+                    <description>
+                        <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDoubleConverter"/> converts to <see cref="T:System.Double"/>
+                    </description>
+                </item>
+                <item>
+                    <term><see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Integer"/></term>
+                    <description>
+                        <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToLongConverter"/> converts to <see cref="T:System.Int64"/>
+                    </description>
+                </item>
+                <item>
+                    <term><see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.String"/></term>
+                    <description>
+                        <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToStringConverter"/> converts to <see cref="T:System.String"/>
+                    </description>
+                </item>
+            </list>
+            
+            </remarks>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.GetConverter(Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute)">
+            <summary>
+            Gets the converter matching the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute"/>
+            </summary>
+            <remarks>
+            <para>
+            When registering specific <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> implementations,
+            the <see cref="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.RegisterGenericConverters"/>
+            method should be called after all 
+            <see cref="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.Register(System.Func{Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute,System.Boolean},Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter)"/>
+            calls to avoid generic converters to mask other implementations:
+            </para>
+            <code>
+            var provider = new EavRawValueConverterProvider();
+            // Register specific converter for booleans
+            provider.Register(a => a.ValueKind == EavValueKind.Boolean, new SomeImplementation());
+            // Then register all generic converters, they will be check after the previous one
+            provider.RegisterGenericConverters();
+            </code>
+            </remarks>
+            <param name="attribute"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.Register(System.Func{Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute,System.Boolean},Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter)">
+            <summary>
+            Registers a converter for attributes matching the validator.
+            </summary>
+            <remarks>
+            <para>
+            When registering specific <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> implementations,
+            the <see cref="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.RegisterGenericConverters"/>
+            method should be called after all 
+            <see cref="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.Register(System.Func{Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute,System.Boolean},Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter)"/>
+            calls to avoid generic converters to mask other implementations:
+            </para>
+            <code>
+            var provider = new EavRawValueConverterProvider();
+            // Register specific converter for booleans
+            provider.Register(a => a.ValueKind == EavValueKind.Boolean, new SomeImplementation());
+            // Then register all generic converters, they will be check after the previous one
+            provider.RegisterGenericConverters();
+            </code>
+            </remarks>
+            <param name="validator"></param>
+            <param name="converter"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider.TryGetConverter(Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute,Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter@)">
+            <summary>
+            Sets the converter for the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavAttribute"/> to the referenced parameter
+            <em>converted</em>. Returns false if no converter where found.
+            </summary>
+            <param name="attribute"></param>
+            <param name="converter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToBoolConverter">
+            <summary>
+            Class used to convert a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Boolean"/>
+            and backward.<br/>
+            This implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> can be registered in
+            an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> (like
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>) to convert <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/>
+            with a <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Boolean"/> property.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToBoolConverter.Convert(System.String)">
+            <summary>
+            Converts the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Boolean"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToBoolConverter.ConvertBack(System.Object)">
+            <summary>
+            Converts a <see cref="T:System.Boolean"/> to <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDateTimeConverter">
+            <summary>
+            Class used to convert a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.DateTime"/>
+            and backward.<br/>
+            This implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> can be registered in
+            an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> (like
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>) to convert <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/>
+            with a <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.DateTime"/> property.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDateTimeConverter.Convert(System.String)">
+            <summary>
+            Converts the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.DateTime"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDateTimeConverter.ConvertBack(System.Object)">
+            <summary>
+            Converts a <see cref="T:System.DateTime"/> to <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDoubleConverter">
+            <summary>
+            Class used to convert a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Double"/>
+            and backward.<br/>
+            This implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> can be registered in
+            an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> (like
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>) to convert <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/>
+            with a <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Number"/> property.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDoubleConverter.Convert(System.String)">
+            <summary>
+            Converts the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Double"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToDoubleConverter.ConvertBack(System.Object)">
+            <summary>
+            Converts a <see cref="T:System.Double"/> to <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToFloatConverter">
+            <summary>
+            Class used to convert a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Single"/>
+            and backward.<br/>
+            This implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> can be registered in
+            an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> (like
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>) to convert <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/>
+            with a <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Number"/> property.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToFloatConverter.Convert(System.String)">
+            <summary>
+            Converts the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Single"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToFloatConverter.ConvertBack(System.Object)">
+            <summary>
+            Converts a <see cref="T:System.Single"/> to <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToIntConverter">
+            <summary>
+            Class used to convert a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Int32"/>
+            and backward.<br/>
+            This implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> can be registered in
+            an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> (like
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>) to convert <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/>
+            with a <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Integer"/> property.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToIntConverter.Convert(System.String)">
+            <summary>
+            Converts the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Int32"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToIntConverter.ConvertBack(System.Object)">
+            <summary>
+            Converts a <see cref="T:System.Int32"/> to <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToLongConverter">
+            <summary>
+            Class used to convert a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Int64"/>
+            and backward.<br/>
+            This implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> can be registered in
+            an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> (like
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>) to convert <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/>
+            with a <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.Number"/> property.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToLongConverter.Convert(System.String)">
+            <summary>
+            Converts the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.Int64"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToLongConverter.ConvertBack(System.Object)">
+            <summary>
+            Converts a <see cref="T:System.Int64"/> to <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToStringConverter">
+            <summary>
+            Class used to convert a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.String"/>
+            and backward.<br/>
+            This implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> can be registered in
+            an implementation of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider"/> (like
+            <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>) to convert <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue"/>
+            with a <see cref="F:Kuchulem.DotNet.EntityAttributeValue.Abstractions.EavValueKind.String"/> property.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToStringConverter.Convert(System.String)">
+            <summary>
+            Converts the <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> to <see cref="T:System.String"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.EAVValueConverters.EavRawValueToStringConverter.ConvertBack(System.Object)">
+            <summary>
+            Converts a <see cref="T:System.String"/> to <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+            <exception cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException"></exception>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException">
+            <summary>
+            Exception throw when the converter could not parse a <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/> value
+            or convert a value to an <see cref="P:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavValue.RawValue"/>.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException.#ctor(System.String,System.Type)">
+            <summary>
+            COnstructor with the rawvalue and type expected from the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/>
+            </summary>
+            <param name="value"></param>
+            <param name="expectedType"></param>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.Exceptions.InvalidConversionException.#ctor(System.Type,System.Type)">
+            <summary>
+            Constructor with the expected type for the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/> and the
+            provided type.
+            </summary>
+            <param name="expectedType"></param>
+            <param name="providedType"></param>
+        </member>
+        <member name="T:Kuchulem.DotNet.EntityAttributeValue.Converters.Extensions.IServiceCollectionExtensions">
+            <summary>
+            Extensions methods to simplify the DI configuration for converters.
+            </summary>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.Extensions.IServiceCollectionExtensions.AddEavConverter(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{System.IServiceProvider,Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverterProvider})">
+            <summary>
+            Adds the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavConverter"/> to the DI and configures
+            the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavRawValueConverterProvider"/>.
+            </summary>
+            <param name="services"></param>
+            <param name="configureProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kuchulem.DotNet.EntityAttributeValue.Converters.Extensions.IServiceCollectionExtensions.AddEavConverter``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Converters.EavConverter"/> to the DI with an implementation
+            of <see cref="T:Kuchulem.DotNet.EntityAttributeValue.Abstractions.IEavRawValueConverter"/>
+            </summary>
+            <typeparam name="TConverterProvider"></typeparam>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

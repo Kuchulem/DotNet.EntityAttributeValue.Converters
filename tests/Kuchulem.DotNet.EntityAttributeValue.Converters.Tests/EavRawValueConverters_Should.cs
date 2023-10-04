@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
 {
-    public class EAVValueConverters_Should
+    public class EavRawValueConverters_Should
     {
         [Test]
         public void ConvertToString()
         {
-            var converter = new EAVValueToStringConverter();
+            var converter = new EavRawValueToStringConverter();
 
             var expected = "Lorem Ipsum";
 
@@ -23,7 +23,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void ConvertToInt()
         {
-            var converter = new EAVValueToIntConverter();
+            var converter = new EavRawValueToIntConverter();
 
             var expected = 156;
 
@@ -33,7 +33,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void ConvertToBool_True()
         {
-            var converter = new EAVValueToBoolConverter();
+            var converter = new EavRawValueToBoolConverter();
 
             var expected = true;
 
@@ -43,7 +43,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void ConvertToBool_False()
         {
-            var converter = new EAVValueToBoolConverter();
+            var converter = new EavRawValueToBoolConverter();
 
             var expected = false;
 
@@ -53,7 +53,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void ConvertToDouble()
         {
-            var converter = new EAVValueToDoubleConverter();
+            var converter = new EavRawValueToDoubleConverter();
 
             var expected = 3.1415;
 
@@ -63,7 +63,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void ConvertToFloat()
         {
-            var converter = new EAVValueToFloatConverter();
+            var converter = new EavRawValueToFloatConverter();
 
             var expected = 3.1415f;
 
@@ -73,7 +73,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void ConvertToLong()
         {
-            var converter = new EAVValueToLongConverter();
+            var converter = new EavRawValueToLongConverter();
 
             long expected = 3;
 
@@ -83,48 +83,11 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void ConvertToDateTime()
         {
-            var converter = new EAVValueToDateTimeConverter();
+            var converter = new EavRawValueToDateTimeConverter();
 
             var expected = new DateTime(2023, 5, 18, 21, 17, 35);
 
             Assert.That(converter.Convert(converter.ConvertBack(expected)), Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void ConvertListToString()
-        {
-            var converter = new EAVValueListToRawValueConverter();
-
-            var expected = new List<string>()
-            {
-                "lorem",
-                "ipsum",
-                "dolore",
-                "sit",
-            };
-
-            var converted = converter.Convert(expected);
-
-            Assert.That(converted, Is.InstanceOf<string>());
-        }
-
-        [Test]
-        public void ConvertBackStringToList()
-        {
-            var converter = new EAVValueListToRawValueConverter();
-
-            var expected = new List<string>()
-            {
-                "lorem",
-                "ipsum",
-                "dolore",
-                "sit",
-            } as IEnumerable<string>;
-
-            var converted = converter.Convert(expected);
-            var convertedBack = converter.ConvertBack(converted);
-
-            Assert.That(convertedBack, Is.EqualTo(expected));
         }
     }
 }
