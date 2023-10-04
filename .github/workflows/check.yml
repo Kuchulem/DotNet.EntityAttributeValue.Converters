@@ -26,4 +26,4 @@ jobs:
     - name: Build
       run: dotnet build -p:VersionPrefix=$VERSION_NUMBER$BUILD_NUMBER --no-restore ./src/Kuchulem.DotNet.EntityAttributeValue.Converters/
     - name: Test
-      run: dotnet test --no-build --verbosity normal ./src/Kuchulem.DotNet.EntityAttributeValue.Abstractions/
+      run: dotnet test --verbosity normal ./tests/Kuchulem.DotNet.EntityAttributeValue.Converters.Tests/
