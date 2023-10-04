@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
 {
-    public class EAVValueConverter_Should_Throw_When
+    public class EavRawValueConverter_Should_Throw_When
     {
         [Test]
         public void InvalidInt()
         {
-            var converter = new EAVValueToIntConverter();
+            var converter = new EavRawValueToIntConverter();
 
             Assert.That(() => converter.Convert("lorem ipsum"), Throws.Exception.InstanceOf<InvalidCastException>());
         }
@@ -21,7 +21,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void InvalidBool()
         {
-            var converter = new EAVValueToBoolConverter();
+            var converter = new EavRawValueToBoolConverter();
 
             Assert.That(() => converter.Convert("lorem ipsum"), Throws.Exception.InstanceOf<InvalidCastException>());
         }
@@ -29,7 +29,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void InvalidDateTime()
         {
-            var converter = new EAVValueToDateTimeConverter();
+            var converter = new EavRawValueToDateTimeConverter();
 
             Assert.That(() => converter.Convert("lorem ipsum"), Throws.Exception.InstanceOf<InvalidCastException>());
         }
@@ -37,7 +37,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void InvalidDouble()
         {
-            var converter = new EAVValueToDoubleConverter();
+            var converter = new EavRawValueToDoubleConverter();
 
             Assert.That(() => converter.Convert("lorem ipsum"), Throws.Exception.InstanceOf<InvalidCastException>());
         }
@@ -45,7 +45,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void InvalidFloat()
         {
-            var converter = new EAVValueToFloatConverter();
+            var converter = new EavRawValueToFloatConverter();
 
             Assert.That(() => converter.Convert("lorem ipsum"), Throws.Exception.InstanceOf<InvalidCastException>());
         }
@@ -53,7 +53,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Converters.Tests
         [Test]
         public void InvalidLong()
         {
-            var converter = new EAVValueToLongConverter();
+            var converter = new EavRawValueToLongConverter();
 
             Assert.That(() => converter.Convert("lorem ipsum"), Throws.Exception.InstanceOf<InvalidCastException>());
         }

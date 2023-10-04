@@ -98,32 +98,62 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models
                         new MockValue
                         {
                             Attribute = attributeRepository.GetByKey("string-list-multiple"),
-                            RawValue = JsonConvert.SerializeObject(new[]{"lorem", "ipsum" })
+                            RawValue = "lorem"
+                        },
+                        new MockValue
+                        {
+                            Attribute = attributeRepository.GetByKey("string-list-multiple"),
+                            RawValue = "ipsum"
                         },
                         new MockValue
                         {
                             Attribute = attributeRepository.GetByKey("int-list-multiple"),
-                            RawValue = JsonConvert.SerializeObject(new[]{ 2.ToString(CultureInfo.InvariantCulture) , 3.ToString(CultureInfo.InvariantCulture) })
+                            RawValue = 2.ToString(CultureInfo.InvariantCulture)
+                        },
+                        new MockValue
+                        {
+                            Attribute = attributeRepository.GetByKey("int-list-multiple"),
+                            RawValue = 3.ToString(CultureInfo.InvariantCulture)
                         },
                         new MockValue
                         {
                             Attribute = attributeRepository.GetByKey("double-list-multiple"),
-                            RawValue = JsonConvert.SerializeObject(new[]{ 3.1415.ToString(CultureInfo.InvariantCulture) , 2.54.ToString(CultureInfo.InvariantCulture) })
+                            RawValue = 2.54.ToString(CultureInfo.InvariantCulture)
+                        },
+                        new MockValue
+                        {
+                            Attribute = attributeRepository.GetByKey("double-list-multiple"),
+                            RawValue = 2.54.ToString(CultureInfo.InvariantCulture)
                         },
                         new MockValue
                         {
                             Attribute = attributeRepository.GetByKey("bool-list-multiple"),
-                            RawValue = JsonConvert.SerializeObject(new[]{ true.ToString(CultureInfo.InvariantCulture) , false.ToString(CultureInfo.InvariantCulture) })
+                            RawValue = false.ToString(CultureInfo.InvariantCulture)
+                        },
+                        new MockValue
+                        {
+                            Attribute = attributeRepository.GetByKey("bool-list-multiple"),
+                            RawValue = false.ToString(CultureInfo.InvariantCulture)
                         },
                         new MockValue
                         {
                             Attribute = attributeRepository.GetByKey("datetime-list-multiple"),
-                            RawValue = JsonConvert.SerializeObject(new[]{ new DateTime(2023, 5, 15, 19, 4, 0).ToString(CultureInfo.InvariantCulture) , new DateTime(2023, 5, 19, 14, 24, 0).ToString(CultureInfo.InvariantCulture) })
+                            RawValue = new DateTime(2023, 5, 15, 19, 4, 0).ToString(CultureInfo.InvariantCulture)
+                        },
+                        new MockValue
+                        {
+                            Attribute = attributeRepository.GetByKey("datetime-list-multiple"),
+                            RawValue = new DateTime(2023, 5, 19, 14, 24, 0).ToString(CultureInfo.InvariantCulture)
                         },
                         new MockValue
                         {
                             Attribute = attributeRepository.GetByKey("entity-list-multiple"),
-                            RawValue = JsonConvert.SerializeObject(new[]{ "child", "other-child" })
+                            RawValue = "child"
+                        },
+                        new MockValue
+                        {
+                            Attribute = attributeRepository.GetByKey("entity-list-multiple"),
+                            RawValue = "other-child"
                         },
                     }
                 },

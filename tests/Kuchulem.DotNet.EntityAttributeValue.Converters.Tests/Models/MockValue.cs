@@ -7,10 +7,18 @@ using System.Threading.Tasks;
 
 namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models
 {
-    public class MockValue : IEAVValue<MockEntity, MockAttribute>
+    public class MockValue : IEavValue
     {
         public string? RawValue { get; set; } = null;
         public MockAttribute? Attribute { get; set; }
         public MockEntity? Entity { get; set; }
+
+        public IEavAttribute GetEavAttribute()
+            => Attribute ?? throw new Exception("No attributre");
+
+        public object GetEntity()
+        {
+            return Entity ?? throw new Exception("No entity");
+        }
     }
 }

@@ -7,23 +7,26 @@ using System.Threading.Tasks;
 
 namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models
 {
-    internal class EAVValueToMockEntityConverter : IEAVValueConverter<MockEntity>
+    internal class EavRawValueToMockEntityConverter : IEavRawValueConverter
     {
         private readonly MockEntityRepository entityRepository;
 
-        public EAVValueToMockEntityConverter(MockEntityRepository entityRepository)
+        public EavRawValueToMockEntityConverter(MockEntityRepository entityRepository)
         {
             this.entityRepository = entityRepository;
         }
 
-        public MockEntity Convert(string value)
+        public object Convert(string value)
         {
             return entityRepository.GetByKey(value);
         }
 
-        public string ConvertBack(MockEntity value)
+        public string ConvertBack(object value)
         {
-            return value.Id;
+            if (value is MockEntity entity)
+                return entity.Id;
+
+            throw new Exception("Not a MockEntity");
         }
     }
 }
