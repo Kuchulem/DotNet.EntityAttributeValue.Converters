@@ -14,7 +14,7 @@ namespace Kuchulem.DotNet.EntityAttributeValue.Tests.Converters.Models
         public MockEntity? Entity { get; set; }
 
         public IEavAttribute GetEavAttribute()
-            => Attribute ?? throw new Exception("No attributre");
+            => Attribute ?? throw new Exception("No attribute");
 
         public object GetEntity()
         {
